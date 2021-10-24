@@ -1,0 +1,187 @@
+<!doctype>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <title>JavaScript Code Exam</title>
+  <link rel="shortcut icon" href="/image/js.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    .errorclass {
+      border: 1px solid red;
+    }
+
+    .errormessage {
+      color: red;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <h2>UIT Team JavaScript exam</h2>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <button id="start" type="button" onclick="random()" class="btn btn-default">start random</button>
+        <button id="stop" type="button" onclick="stp()" class="btn btn-default">stop random</button>
+        <button id="sort" type="button" onclick="arrange()" class="btn btn-default">sort</button>
+        <button id="myBtn" type="button" class="btn btn-default pull-right
+
+        "> Add User</button>
+
+      </div>
+      <div class="form-group" style="display: flex">
+        <input id="txt" class="form-control" style="width:20%" type="text" placeholder="Type Name" />
+        <button id="serch" type="button" onclick="serch()" class="btn btn-default ">Search</button>
+
+      </div>
+    </form>
+    <script>
+
+    </script>
+    <div class="contents">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+
+          <tr>
+            <td id="idd"></td>
+            <td id="img"></td>
+            <td id="name"></td>
+            <td id="price"></td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Clicking on the modal “backdrop” will automatically close the modal.  -->
+  <div class="modal fade" id="myModal" role="dialog" data-backdrop="static"
+    >
+    <!-- The onsubmit event occurs when a form is submitted. -->
+    <div class="modal-dialog">
+      <div class="modal-content ">
+        <div class="modal-header" style="padding:40px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class=""></span> Add User </h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+
+          <form class="contact-form form-group" runat="server">
+            <div class=" ">
+              <label for="id">ID</label>
+              <input id="idd" name="id" class="form-control"  type="number" />
+            </div>
+            <div class=" form-group">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" class="form-control" />
+            </div>
+            <div class="form-group" >
+              <label for="img">Image</label>
+
+              <input type="file" id="inputImg" onchange="preview()">
+              <img id="myfile" src="" width="100px" height="100px"/>
+             
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input id="no" name="price" class="form-control"  type="number" />
+            </div>
+
+            <button class="save btn btn-info" type="submit" >Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger  pull-left" data-dismiss="modal"> close</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="modal fade" id="editModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" onS>
+      <div class="modal-content ">
+        <div class="modal-header" style="padding:40px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4></span> Edit User </h4>
+        </div>
+        <div id="modlBody" class="modal-body" style="padding:40px 50px;">
+          <input type="hidden" id="txtrowid" />
+          <div class="col-md-12 form-group">
+            <label>Name</label>
+            <input type="text" id="txtrowname" class="form-control" />
+            <small id="errormessagename" class="errormessage"></small>
+          </div>
+          <div class="col-md-12 form-group">
+            <label>Price</label>
+            <input type="text" id="txtrowprice" class="form-control" />
+            <small id="errormessageprice" class="errormessage"></small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btnupdate" class="btn btn-success"> Update </button>
+          <!-- <button id="btndelete" class="btn btn-danger"> Delete </button> -->
+          <button type="submit" class="btn btn-danger fas fa-cut pull-left" data-dismiss="modal"><span class=""></span>
+            Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal fade" id="dltModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" onS>
+      <div class="modal-content ">
+        <div class="modal-header" style="padding:40px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4></span> Delete User</h4>
+        </div>
+        <div id="modlBody" class="modal-body" style="padding:40px 50px;">
+          <input type="hidden" id="userid" />
+          <div class="col-md-12 form-group">
+            <label>Name</label>
+            <input type="text" id="username" class="form-group" style="display: flex" disabled />
+
+            <small id="errormessagename" class="errormessage"></small>
+          </div>
+          <div class="col-md-12 form-group">
+            <label>Price</label>
+            <input type="text" id="userprice" class="form-group" style="display: flex" disabled />
+            <p class="sure"></p>
+            <small id="errormessageprice" class="errormessage"></small>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button id="btndelete" data-dismiss="modal" class="btn btn-danger"> Delete </button>
+          <button type="submit" class="btn btn-danger fas fa-cut pull-left" data-dismiss="modal"><span class=""></span>
+            Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  <script src="json/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
